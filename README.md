@@ -1,2 +1,46 @@
 # LocalMCP-Server-MSSQL
 this local MCP server of ms sql helps you to connect your ms sql server database to Claude desktop so that you can talk with your data using claude LLM
+
+goto to this folder in command prompt and type npm install
+or
+after copying this project in c drive
+goto to path in command prompt
+and 
+do
+npm install
+******************************
+then in claude desktop goto File-Settings-Developer Tab
+then Click Edit Config
+then open file "claude_desktop_config" in VS Code and add configuration like below
+{
+  "mcpServers": { 
+"LocalMCP_Automation": {
+      "command": "node",
+      "args": [
+        "C:\\mcp-servers\\mssql-server\\mssql-mcp-server.js"
+      ],
+      "env": {
+        "MSSQL_SERVER": "your server ip",
+        "MSSQL_DATABASE": "your database name",
+        "MSSQL_USER": "your user name",
+        "MSSQL_PASSWORD": "your password",
+        "MSSQL_PORT": "1433"
+      }
+    }
+}
+
+then close the claude desktop and open and run
+Note: you must have to close the claude from task manager as well and then open
+
+******************************
+SECURITY NOTE:
+If you are not a professional in MS SQL, it is strongly recommended to use a READ-ONLY SQL credential (a login with SELECT permission only).
+This prevents Claude from accidentally running destructive queries like DELETE, DROP, or UPDATE on your database.
+
+To create a read-only user in MS SQL Server, run this in SSMS:
+  CREATE LOGIN mcp_readonly WITH PASSWORD = 'YourStrongPassword';
+  CREATE USER mcp_readonly FOR LOGIN mcp_readonly;
+  EXEC sp_addrolemember 'db_datareader', 'mcp_readonly';
+
+Then use this login's credentials in the claude_desktop_config.json instead of an admin account.
+******************************
