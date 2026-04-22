@@ -1,0 +1,17 @@
+{
+  "name": "mssql-mcp-server",
+  "version": "1.0.0",
+  "description": "MS SQL Server MCP Server for Claude Desktop",
+  "type": "module",
+  "main": "mssql-mcp-server.js",
+  "scripts": {
+    "start": "node mssql-mcp-server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "mssql": "^11.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
